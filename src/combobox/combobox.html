@@ -1,0 +1,29 @@
+<div>
+    <input type="text" ng-disabled="isDisabled" class="search-input form-control" ng-model="$ctrl.inputText" ng-change="onChange()" ng-trim="false" ng-focus="onFocus()"></input>
+    <ul ng-if="!groupBy" class="dropdown-list" ng-show="$ctrl.open && !$ctrl.noSource">
+        <li>
+            <div ng-repeat="item in $ctrl.sourceList track by $index" ng-click="onItemClick(item)" ng-class="{'active': item === $ctrl.activeItem}">
+                <span class="select-choices-row-inner">
+                    <i class="icon"></i>
+                    <div class="select-option-row">{{$ctrl.getLabel(item)}}</div>
+                </span>
+            </div>
+        </li>
+    </ul>
+    <ul ng-if="!!groupBy" class="dropdown-list" ng-show="$ctrl.open && !$ctrl.noSource">
+        <li class="grouped" ng-repeat="group in $ctrl.groups track by $index">
+            <div class="divider" ng-show="$index > 0"></div>
+            <div class="selection-option-group" ng-click="$ctrl.onCollapse(group.name)">
+                <i ng-class="{'group-open-icon': !$ctrl.collapseMap[group.name], 'group-close-icon': $ctrl.collapseMap[group.name]}"></i>
+                <i class="group-icon"></i>
+                <span>{{group.name}}</span>
+            </div>
+            <div ng-show="!$ctrl.collapseMap[group.name]" ng-repeat="item in group.items" ng-click="onItemClick(item)" ng-class="{'active': item === $ctrl.activeItem}">
+                <span class="select-choices-row-inner">
+                    <i class="icon"></i>
+                    <div class="select-option-row">{{$ctrl.getLabel(item)}}</div>
+                </span>
+            </div>
+        </li>
+    </ul>
+</div>
