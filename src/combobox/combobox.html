@@ -4,7 +4,7 @@
         <li>
             <div ng-repeat="item in $ctrl.sourceList track by $index" ng-click="onItemClick(item)" ng-class="{'active': item === $ctrl.activeItem}">
                 <span class="select-choices-row-inner">
-                    <i class="icon"></i>
+                    <i class="icon" ng-class="itemIconClass"></i>
                     <div class="select-option-row">{{$ctrl.getLabel(item)}}</div>
                 </span>
             </div>
@@ -14,13 +14,13 @@
         <li class="grouped" ng-repeat="group in $ctrl.groups track by $index">
             <div class="divider" ng-show="$index > 0"></div>
             <div class="selection-option-group" ng-click="$ctrl.onCollapse(group.name)">
-                <i ng-class="{'group-open-icon': !$ctrl.collapseMap[group.name], 'group-close-icon': $ctrl.collapseMap[group.name]}"></i>
-                <i class="group-icon"></i>
+                <i class="icon" ng-class="{'icon-open-sign': !$ctrl.collapseMap[group.name], 'icon-close-sign': $ctrl.collapseMap[group.name]}"></i>
+                <i class="icon" ng-class="groupIconClass"></i>
                 <span>{{group.name}}</span>
             </div>
             <div ng-show="!$ctrl.collapseMap[group.name]" ng-repeat="item in group.items" ng-click="onItemClick(item)" ng-class="{'active': item === $ctrl.activeItem}">
                 <span class="select-choices-row-inner">
-                    <i class="icon"></i>
+                    <i class="icon" ng-class="itemIconClass"></i>
                     <div class="select-option-row">{{$ctrl.getLabel(item)}}</div>
                 </span>
             </div>

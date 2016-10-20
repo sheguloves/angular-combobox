@@ -116,6 +116,11 @@ module.exports = function($timeout, $document, $window) {
             var choices = container.querySelectorAll('.select-choices-row-inner');
 
             var highlighted = choices[$scope.$ctrl.activeIndex];
+
+            if (!highlighted || !container) {
+                return;
+            }
+
             var posY = highlighted.offsetTop + highlighted.clientHeight - container.scrollTop;
             var height = container.offsetHeight;
 
@@ -133,6 +138,10 @@ module.exports = function($timeout, $document, $window) {
         }
 
         $scope.onFocus = function() {
+            if ($scope.$ctrl.selecting) {
+                $scope.$ctrl.selecting = false;
+                return;
+            }
             if (!$scope.$ctrl.open) {
                 $scope.$ctrl.open = true;
                 $scope.refreshList($scope.$ctrl.search);
@@ -283,6 +292,7 @@ module.exports = function($timeout, $document, $window) {
         });
 
         $scope.onItemClick = function(item) {
+            $scope.$ctrl.selecting = true;
             var str = "";
             if ($scope.valueField) {
                 str = item[$scope.valueField];
@@ -358,6 +368,7 @@ module.exports = function($timeout, $document, $window) {
         $ctrl.activeIndex = -1;
         $ctrl.collapseMap = {};
         $ctrl.orgGroups = [];
+        $ctrl.selecting = false;
 
         $scope.filterFunction = function(item) {
             if ($scope.labelField) {
@@ -423,7 +434,9 @@ module.exports = function($timeout, $document, $window) {
             isDisabled: "<",
             groupBy: "<",
             labelField: "<",
-            valueField: "<"
+            valueField: "<",
+            itemIconClass: "<",
+            groupIconClass: "<"
         },
         link: link
     };
