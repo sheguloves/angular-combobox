@@ -3,7 +3,7 @@
 ### Javascript
 
 ```
-var app = require('angular').module('transwarp.common',[]);
+var app = require('angular').module('common',[]);
 
 app.directive('combobox', ['$timeout', '$document', '$window', '$parse', require('./combobox/combobox')]);
 ```
